@@ -10,5 +10,9 @@
   "keywords": [],
   "author": "Milad Soleymani",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "express": "^4.21.0",
+    "mongoose": "^8.7.0"
+  }
 }

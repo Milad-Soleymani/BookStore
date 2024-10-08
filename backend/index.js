@@ -1,11 +1,21 @@
 import express from "express";
-import { PORT } from "./config.js";
+import { PORT, mongodbURL } from "./config.js";
+import mongoose from "mongoose";
 
 const app = express();
 
 app.get('/', (req, res) => {
     res.status(234).send('Welcome');
 })
-app.listen(PORT, () => {
-    console.log(`App is listening on Port ${PORT}`)
-})
+
+
+mongoose
+    .connect(mongodbURL)
+    .then(() =>{
+        app.listen(PORT, () => {
+            console.log(`App is listening on Port ${PORT}`)
+        })
+    })
+    .catch((err) => {
+        console.log('Database Have not Loaded :(')
+    })
