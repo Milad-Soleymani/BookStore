@@ -1,6 +1,8 @@
-import express from "express"
-import { PORT } from "./config";
+import express from "express";
+import { PORT } from "./config.js";
 
 const app = express();
-aadfda
-app.listen(PORT)
+
+app.listen(PORT, () => {
+    console.log(`App is listening on Port ${PORT}`)
+})

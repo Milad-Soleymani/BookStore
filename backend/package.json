@@ -8,7 +8,7 @@
     "dev": "nodemon index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Milad Soleymani",
   "license": "ISC",
   "description": ""
 }
