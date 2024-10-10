@@ -1,16 +1,18 @@
+// ! import modules, and ...
 import express, { request, response } from "express";
 import { PORT, mongodbURL } from "./config.js";
 import mongoose from "mongoose";
 import { Book } from "./models/bookModel.js";
+
+// ! create an express app
 const app = express();
 
+// ! use a middlewear for parsing json
 app.use(express.json())
 
-app.get('/', (req, res) => {
-    res.status(234).send('Welcome');
-})
 
-// Route for save a new book
+
+// ! Route for Save a new Book
 
 app.post("/", async (request, response) => {
     try {
@@ -39,6 +41,8 @@ app.post("/", async (request, response) => {
     }
 });
 
+// ! Route for access all Books
+
 app.get('/books', async (request, response) => {
     try {
         const books = await Book.find({});
@@ -53,8 +57,9 @@ app.get('/books', async (request, response) => {
     }
 })
 
+// ! Route for Update a Book
 app.put('/books/:_id', async (request, response) => {
-    try{
+    try {
         if (
             !request.body.title ||
             !request.body.author ||
@@ -67,20 +72,22 @@ app.put('/books/:_id', async (request, response) => {
         const id = request.params;
 
         const result = await Book.findByIdAndUpdate(id, request.body)
-        
-        if(!result){
-            return response.status(404).json({message: 'Book not found'})
-            return response.status(404).json({message: 'Book not found'})
+
+        if (!result) {
+            return response.status(404).json({ message: 'Book not found' })
+            return response.status(404).json({ message: 'Book not found' })
         }
 
-        return response.status(200).json({message: 'Book Update Successfully :)'})
+        return response.status(200).json({ message: 'Book Update Successfully :)' })
 
     }
-    catch (error)  {
+    catch (error) {
         console.log(error.message);
         response.status(500).send({ message: error.message });
     }
 })
+
+// ! Route for access a Book
 
 app.get('/books/:id', async (request, response) => {
 
@@ -96,15 +103,17 @@ app.get('/books/:id', async (request, response) => {
     }
 })
 
+
+// ! Route for Delete a Book
 app.delete('/books/:_id', async (request, response) => {
-    try{
+    try {
         const id = request.params;
 
         const Result = await Book.findByIdAndDelete(id);
 
-        if(!Result)response.status(500).send({ message: error.message });
+        if (!Result) response.status(500).send({ message: error.message });
 
-        response.status(200).json({message: "Book is Deleted!"})
+        response.status(200).json({ message: "Book is Deleted!" })
 
     } catch (error) {
         console.log(error.message);
